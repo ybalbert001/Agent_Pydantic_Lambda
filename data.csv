@@ -1,3 +1,2 @@
-Service,Employee
-SageMaker,Amanda
-personlize,Sofia
+employee,role,domain,scope
+Jane,SS,AIML,SageMaker
