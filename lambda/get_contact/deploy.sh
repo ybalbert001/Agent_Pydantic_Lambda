@@ -6,18 +6,38 @@ if ! command -v jq &> /dev/null ;then
     exit 1
 fi
 
-db_subnet_group_name="test_subnet_group_name" #agent_db_group
-db_username="db1username"                   #db_username
-db_password="db1password"                   #db_password
-db_instance_name="db-instance-name"         #agent-db-instance
+region=$1
+agent_name=$2
+agent_id=$RANDOM
+db_subnet_group_name="db_subnet_group_name_${agent_id}"
+db_username="username${agent_id}"                   
+db_password="password${agent_id}"
+db_instance_name="db-instance-${agent_id}"
 db_name="simple_info_db"
 db_table_name='employee'
+lambda_function_name="agent_tool_$agent_name"
+policy_name="policy$agent_id"
+role_name="role$agent_id"
 
-region="us-west-2"
 stack_name="QAChatDeployStack"
 db_az="${region}a"
 
-vpc_id=$(aws cloudformation describe-stacks --stack-name "QAChatDeployStack" --region "us-west-2" --query 'Stacks[0].Outputs[?OutputKey==`VPC`].{OutputValue: OutputValue}' | jq ".[].OutputValue")
+echo "<Configurations>"
+echo "region=$region"
+echo "db_subnet_group_name=$db_subnet_group_name"
+echo "db_username=$db_username"
+echo "db_password=$db_password"
+echo "db_instance_name=$db_instance_name"
+echo "db_name=$db_name"
+echo "db_table_name=$db_table_name"
+echo "lambda_function_name=$lambda_function_name"
+echo "policy_name=$policy_name"
+echo "role_name=$role_name"
+echo "</Configurations>"
+echo 
+
+echo "Step1. Creating Database instance of RDS(Mysql).."
+vpc_id=$(aws cloudformation describe-stacks --stack-name "QAChatDeployStack" --region "${region}" --query 'Stacks[0].Outputs[?OutputKey==`VPC`].{OutputValue: OutputValue}' | jq ".[].OutputValue")
 echo $vpc_id
 
 sg_id=$(aws ec2 describe-security-groups --filters Name=vpc-id,Values="$vpc_id" | jq ".SecurityGroups[0].GroupId")
@@ -35,7 +55,6 @@ aws rds create-db-subnet-group \
     --db-subnet-group-description "DB Subnet Group For Agent" \
     --subnet-ids $subnet_ids
 
-db_subnet_group_name="test_subnet_group_name"
 aws rds create-db-instance \
     --db-instance-identifier $db_instance_name \
     --allocated-storage 50 \
@@ -66,6 +85,8 @@ while true; do
     fi
 done
 
+echo
+echo "Step2. Creating Lambda assets(zip, iamrole).."
 #prepare lambda code zip
 sudo yum -y install python-pip
 mkdir -p lambda_code/package
@@ -77,23 +98,25 @@ cd ..
 zip my_deployment_package.zip ../lambda_function.py
 cd ..
 
+policy_name="policy$agent_id"
+role_name="role$agent_id"
 #prepare lambda iam role
-policy=$(aws iam create-policy --policy-name MyCustomPolicy2 --policy-document file://lambda_role_policy.json)
+policy=$(aws iam create-policy --policy-name $policy_name --policy-document file://lambda_role_policy.json)
 policy_arn=$(echo $policy | jq '.Policy.Arn')
 policy_arn=${policy_arn//\"}
 
 iam_role=$(aws iam create-role \
-    --role-name AgentLambdaRole2 \
+    --role-name $role_name \
     --assume-role-policy-document '{"Version": "2012-10-17", "Statement": [{"Effect": "Allow", "Principal": {"Service": "lambda.amazonaws.com"},"Action": "sts:AssumeRole"}]}')
-role_name=$(echo $iam_role | jq '.Role.RoleName')
-role_name=${role_name//\"}
 role_arn=$(echo $iam_role | jq '.Role.Arn')
 role_arn=${role_arn//\"}
 
 aws iam attach-role-policy --role-name $role_name \
     --policy-arn $policy_arn
 
-aws lambda create-function --function-name agent_tool_get_contact \
+echo
+echo "Step3. Creating Lambda and setup its configuration."
+aws lambda create-function --function-name $lambda_function_name \
     --zip-file fileb://lambda_code/my_deployment_package.zip --runtime python3.10 \
     --handler lambda_function.lambda_handler --timeout 10 --region $region \
     --role $role_arn \
@@ -101,6 +124,6 @@ aws lambda create-function --function-name agent_tool_get_contact \
 
 env_list="{db_username='${db_username}',db_password='${db_password}',db_host='${db_host}',db_port='${db_port}',db_name='${db_name}',db_table_name='${db_table_name}'}"
 
-aws lambda update-function-configuration --function-name agent_tool_get_contact \
+aws lambda update-function-configuration --function-name $lambda_function_name \
     --environment Variables=$env_list
 

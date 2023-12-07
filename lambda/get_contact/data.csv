@@ -1,2 +1,13 @@
 employee,role,domain,scope
-Jane,SS,AIML,SageMaker
+Jane,Sales,AIML,North
+Lily,Sales,AIML,South
+June,Product Manager,AIML,bedrock
+Alice,Tech,AIML,SageMaker
+Sofia,Product Manager,AIML,Lex
+Jason,Tech,AIML,Lex
+Tom,Tech,Analytics,EMR
+Goden,Product Manager,Analytics,Redshift
+Jack,Leader,Compute& Storage GTM,Compute& Storage GTM
+Jackson,Tech,Compute& Storage,Ec2
+Hank,Product Manager,Analytics,EMR
+Rocky,Tech,Analytics,Quicksight
