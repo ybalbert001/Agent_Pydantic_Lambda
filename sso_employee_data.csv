@@ -1,0 +1,291 @@
+employee,role,domain,scope
+Chen Erik,Leader,Head of SSO,Head of SSO
+Yang Zhang,Leader,AIML,AIML
+Troy Cui,Leader,Analytics GTM,Analytics GTM
+Jack Han,Leader,Database GTM,Database GTM
+Scott Zhou,Leader,Compute& Storage GTM,Compute& Storage GTM
+Ping Wang,Leader,GCR Compute EC2,GCR Compute EC2
+Ang Wang,Leader,GCR SSO Storage,GCR SSO Storage
+John Bai,Leader,Security GTM,Security GTM
+Xavier Wang,Leader,GCR Data Services Tech,GCR Data Services Tech
+Peng Sun,Leader,CSM  Beijing,CSM  Beijing
+Yunfei Lv,Leader,Network & Edge GTM,Network & Edge GTM
+Young Yang,Leader,HKT Tech,HKT Tech
+Zhanling Chen,Leader,GCR SSO ApProject Managerod,GCR SSO ApProject Managerod
+Brenda Li,Leader,HK SSO Lead,HK SSO Lead
+Cathy Lai,Leader,TWN SSO Lead,TWN SSO Lead
+Yu Guan,Leader,ServiceLaunch,ServiceLaunch
+Yinuo He,Product Manager,AIML,SageMaker
+Neo Tang,Product Manager,AIML,Comprehend/Transcribe/Translate/Kendra/Polly/Lex
+Jun Deng,Product Manager,AIML,bedrock
+Yvonne Yang,Project Manager,AIML,Rekognition/Textract
+Yvonne Yang,Project Manager,AIML,CV+Program
+Yun Li,Sales,AIML,North
+Shishuai Wang,Tech,AIML,North
+Yuhui Liang,Tech,AIML,North
+Bruce Liu,Sales,AIML,East - Named Account
+Xueqing Li,Tech,AIML,East - Named Account
+Jasmine Chen,Sales,AIML,East
+Hao Zheng,Tech,AIML,East
+Nick Jiang,Sales,AIML,West
+Qingyuan Tang,Tech,AIML,West
+Xin Hao,Sales,AIML,South
+Shaoyong Shen,Tech,AIML,South
+Zheng Zhang,Tech,AIML,XC
+Yuanbo Li,Tech,AIML,Analytics
+Huang Xiao,Tech,Analytics,South
+Pan Chao,Tech,Analytics,South
+Zhongfu Jing,Sales,Analytics,South
+Dalei Xu,Tech,Analytics,East
+Gracy Xu,Sales,Analytics,East
+Shijian Tang,Tech,Analytics,North
+Pan Chao,Tech,Analytics,North
+Wuguang Zhu,Sales,Analytics,North
+Neo Sun,Tech,Analytics,FSI DNB
+Yuky Zhang,Sales,Analytics,FSI DNB
+Wenhui Yang,Tech,Analytics,Redshift
+Dan Jin,Product Manager,Analytics,Redshift
+Qingyuan Tang,Tech,Analytics,West
+Wuguang Zhu,Sales,Analytics,West
+Qingyuan Tang,Tech,Analytics AIML,Analytics AIML
+Yuanbo Li,Tech,Analytics AIML,Analytics AIML
+Laurence Geng,Tech,Analytics,G1K
+Zhongfu Jing,Sales,Analytics,G1K Auto
+Zhongfu Jing,Sales,Analytics,CS auto
+Zhongfu Jing,Sales,Analytics,Geo Central
+Zhongfu Jing,Sales,Analytics,Fu Jian
+Gracy Xu,Sales,Analytics,G1K exl Auto
+Wuguang Zhu,Sales,Analytics,Shan Dong
+Wuguang Zhu,Sales,Analytics,SMB
+Wuguang Zhu,Sales,Analytics,NWCD
+Jason Li,Product Manager,Analytics,Amazon OpenSearch
+Goden Yao,Product Manager,Analytics,EMR
+Goden Yao,Product Manager,Analytics,Glue
+Goden Yao,Product Manager,Analytics,Athena
+Goden Yao,Product Manager,Analytics,Lake Formation
+Jin Shen,Product Manager,Analytics,BI & Data Governance
+Jin Shen,Product Manager,Analytics,Partner
+Na Zhang,Product Manager,Analytics,Cross-Sell(AI/ML+ANA)
+Na Zhang,Product Manager,Analytics,MSK/Kinesis
+Na Zhang,Product Manager,Analytics,QuickSignt
+Zhanling Chen,Product Manager,ApProject Managerod,Code/EKS-A/ECS-A/ECR
+Walkley He,Tech,ApProject Managerod,Code/EKS-A/ECS-A/ECR
+Pengyong Ye,Tech,ApProject Managerod,Code/EKS-A/ECS-A/ECR
+Zhanling Chen,Product Manager,ApProject Managerod,Others(ROSA/Serverless App Repo/CloudMap/ApProject Manageresh/AppRunner)
+Ping Ma,Product Manager,ApProject Managerod,Lambda/API GW
+Harold Sun,Tech,ApProject Managerod,Lambda/API GW
+Han Li,Product Manager,ApProject Managerod,ECS/Fargate
+Dongdong Yang,Tech,ApProject Managerod,ECS/Fargate
+Ka Chen,Product Manager,ApProject Managerod,Partner
+Bingjiao Yu,Tech,ApProject Managerod,Partner
+Xing Wang,Product Manager,ApProject Managerod,EKS
+Xiangyan Wang,Tech,ApProject Managerod,EKS
+Li Gong,Product Manager,ApProject Managerod,MQ/SQS/SNS/ Step Functions/ EventBridge/MWAA
+Elon Niu,Tech,ApProject Managerod,MQ/SQS/SNS/ Step Functions/ EventBridge/MWAA
+Li Gong,Product Manager,ApProject Managerod,Marketing
+Elon Niu,Tech,ApProject Managerod,Marketing
+Ethan Xie,Sales,Cloud_Intelligence,AliCloud Competition
+Ethan Xie,Sales,Cloud_Intelligence,Tencent Cloud Competition
+Ethan Xie,Sales,Cloud_Intelligence,Azure Competition
+Vivienne Xu,Sales,Cloud_Intelligence,Azure Competition
+Ethan Xie,Sales,Cloud_Intelligence,GCP Competition
+Vivienne Xu,Sales,Cloud_Intelligence,GCP Competition
+Ethan Xie,Sales,Cloud_Intelligence,OCI Competition
+Ethan Xie,Sales,Cloud_Intelligence,Field Enablement
+Nathan Mao,Sales,Cloud_Economics,Business Value (BV)
+Dave Sun,Sales,Cloud_Economics,Business Value (BV)
+Jiang Qi,Tech,Cloud_Economics,Business Value (BV)
+Nathan Mao,Sales,Cloud_Economics,Cloud Financial Management (CFM)
+Dave Sun,Sales,Cloud_Economics,Cloud Financial Management (CFM)
+Jiang Qi,Tech,Cloud_Economics,Cloud Financial Management (CFM)
+Nathan Mao,Sales,Cloud_Economics,FinHack
+Dave Sun,Sales,Cloud_Economics,FinHack
+Jiang Qi,Tech,Cloud_Economics,FinHack
+Ping Wang,Product Manager,Compute,Savings Plans
+Xu Cao,Product Manager,Compute,C/R/M/T(Intel)
+Lei Wang,Tech,Compute,C/R/M/T(Intel)
+Xu Cao,Product Manager,Compute,Graviton (C/R/M/T/X)
+Vincent Wang,Tech,Compute,Graviton (C/R/M/T/X)
+Xu Cao,Product Manager,Compute,X/U
+Xu Cao,Product Manager,Compute,Mac
+Lei Wang,Tech,Compute,Mac
+Xu Cao,Product Manager,Compute,AL
+Lei Wang,Tech,Compute,AL
+Kai Yao,Product Manager,Compute,C/R/M/T(AMD)
+Quan Yuan,Tech,Compute,C/R/M/T(AMD)
+Kai Yao,Product Manager,Compute,Graviton (I)
+Vincent Wang,Tech,Compute,Graviton (I)
+Kai Yao,Product Manager,Compute,I/D/H
+Jieling Ding,Tech,Compute,I/D/H
+Kai Yao,Product Manager,Compute,Lightsail
+Quan Yuan,Tech,Compute,Lightsail
+Kai Yao,Product Manager,Compute,Flexible Compute
+Jieling Ding,Tech,Compute,Flexible Compute
+Troy Liang,Product Manager,Compute,Graviton (c6gn c7gn)
+Vincent Wang,Tech,Compute,Graviton (c6gn c7gn)
+Troy Liang,Product Manager,Compute,EC2 Networking
+Jinyi Li,Product Manager,Connect_SES_Pinpoint,Connect
+Lei Kang,Tech,Connect_SES_Pinpoint,Connect
+Jinyi Li,Product Manager,Connect_SES_Pinpoint,SES
+Lei Kang,Tech,Connect_SES_Pinpoint,SES
+Jinyi Li,Product Manager,Connect_SES_Pinpoint,Pinpoint
+Lei Kang,Tech,Connect_SES_Pinpoint,Pinpoint
+Jingyu Zhang,Product Manager,Database,RDS open source
+Jingyu Zhang,Product Manager,Database,Aurora
+Yujia Wang,Product Manager,Database,RDS SQL Server
+Yujia Wang,Product Manager,Database,Oracle
+Chandler Lv,Tech,Database,Oracle
+Xiaohua Tang,Tech,Database,Oracle
+Yujia Wang,Product Manager,Database,Babelfish
+Michael Dai,Product Manager,Database,ElastiCache
+Chandler Lv,Tech,Database,ElastiCache
+Lili Ma,Tech,Database,ElastiCache
+Chuan Jin,Tech,Database,ElastiCache
+Yang Chen,Tech,Database,ElastiCache
+Michael Dai,Product Manager,Database,MemoryDB
+Lili Ma,Tech,Database,MemoryDB
+Zaijun An,Product Manager,Database,DocumentDB
+Bingbing Liu,Tech,Database,DocumentDB
+Zaijun An,Product Manager,Database,Timestream
+Chandler Lv,Tech,Database,Timestream
+Bingbing Liu,Tech,Database,Timestream
+Fred Yu,Product Manager,Database,DynamoDB
+Chandler Lv,Tech,Database,DynamoDB
+Amy Li,Tech,Database,DynamoDB
+Fred Yu,Product Manager,Database,Keyspaces
+Fred Yu,Product Manager,Database,DMS
+Chandler Lv,Tech,Database,DMS
+Fred Yu,Product Manager,Database,Others
+Min Xu,Sales,Database,DNB North
+Min Xu,Sales,Database,SMB Startups
+Neos Huang,Sales,Database,DNB East
+Neos Huang,Sales,Database,ENT Auto
+Neos Huang,Sales,Database,G1k Retail
+Neos Huang,Sales,Database,GEO Central
+Chandler Lv,Tech,Database,Aurora MySQL
+Bingbing Liu,Tech,Database,Aurora MySQL
+Lili Ma,Tech,Database,Aurora MySQL
+Amy Li,Tech,Database,Aurora MySQL
+Chuan Jin,Tech,Database,Aurora MySQL
+Yang Chen,Tech,Database,Aurora MySQL
+Chandler Lv,Tech,Database,Neptune
+Xiaohua Tang,Tech,Database,Aurora PostgreSQL
+Qing Wan,Product Manager,HPC,HPC Hybrid
+Bing Liu,Tech,HPC,HPC Hybrid
+Yu Geng,Product Manager,HPC,East Partner
+Yu Geng,Product Manager,HPC,HPC instance (hpc6a/hpc6id/x2iezn/EFA)
+Bing Liu,Tech,HPC,HPC instance (hpc6a/hpc6id/ x2iezn/ EFA)
+Yu Geng,Product Manager,HPC,HPC software (SOCA/ Batch/ Parallel cluster/ etc)
+Bing Liu,Tech,HPC,HPC software (SOCA/ Batch/ Parallel cluster/ etc)
+Yu Geng,Product Manager,HPC,HPC+
+Bing Liu,Tech,HPC,HPC+
+Troy Liang,Product Manager,HPC,East HCLS
+Qing Wan,Product Manager,Hybrid,Outposts Rack/ Outposts Server
+Larry Yang,Tech,Hybrid,Outposts Rack/ Outposts Server
+Qing Wan,Product Manager,Hybrid,Local Zone
+Larry Yang,Tech,Hybrid,Local Zone
+Qing Wan,Product Manager,Hybrid,Wavelength
+Larry Yang,Tech,Hybrid,Wavelength
+Karen Fan,Product Manager,IoT,CN East
+Anderson Hsiao,Product Manager,IoT,HKT
+Xinggao Xia,Product Manager,IoT,KVS
+Zihang Huang,Tech,IoT,KVS
+Xinggao Xia,Product Manager,IoT,CN North
+Yucheng Tsai,Product Manager,IoT,CN Mainland
+Yucheng Tsai,Product Manager,IoT,CN South
+Zihang Huang,Tech,IoT,IoT
+CuiCui Cui,Product Manager,Networking,Connectivity Service
+Kevin Liu,Product Manager,Networking,Connectivity Service
+Harvey Yang,Product Manager,Networking,DX
+Jingqing Xu,Product Manager,Networking,DX
+Henry Peng,Product Manager,Networking,Data Transfer(DTO via Internet/Static BGP/ DTAZ/ DTIR)
+Hongyan Zhao,Product Manager,Networking,Program
+Yibai Liu,Tech,Networking,Networking
+Bo Li,Sales,Edge,DNB
+Bo Li,Sales,Edge,FSI
+Leo Cheng,Sales,Edge,HKT
+Shuhai Liu,Sales,Edge,ENT
+Shuhai Liu,Sales,Edge,MMT
+Yufei Lv,Sales,Edge,Key Account
+Sam Ye,Tech,Edge,Edge Others
+Alex Cui,Tech,Edge,Edge East
+Cheng Chen,Tech,Edge,Edge South
+Jason Wang,Tech,Edge,Edge North
+n Wang,Tech,Edge,Edge North
+Jason Jiang,Product Manager,Security,ENT
+Di Zhao,Tech,Security,ENT
+Jason Jiang,Product Manager,Security,ESS
+Xudong Wang,Tech,Security,ESS
+Jason Jiang,Product Manager,Security,Data Crypto(PCA/CA/CloudHSM/Macie/KMS/SecretesManager)
+Di Zhao,Tech,Security,Data Crypto(PCA/CA/CloudHSM/Macie/KMS/SecretesManager)
+Jason Jiang,Product Manager,Security,Mgmt Tools(Config/CloudTrail/CloudWatch/CWE/CWL/ControlTower)
+Yang Li,Tech,Security,Mgmt Tools(Config/CloudTrail/CloudWatch/CWE/CWL/ControlTower)
+Jason Jiang,Product Manager,Security,AuditManger/Detective/GuardDuty/Inspector/SecurityHUB
+Ying Zhou,Product Manager,Security,G1K
+Yang Li,Tech,Security,G1K
+Ying Zhou,Product Manager,Security,Compliance
+Jiahui Chen,Product Manager,Security,SMB
+Xudong Wang,Tech,Security,SMB
+Jiahui Chen,Product Manager,Security,Identity(Cognito/AD Connector/Managed AD/IAM)
+Matt Yu,Tech,Security,Identity(Cognito/AD Connector/Managed AD/IAM)
+Jiahui Chen,Product Manager,Security,Cloud Directory
+Jiahui Chen,Product Manager,Security,Single Sign-On
+Xiaojiang Wen,Product Manager,Security,DNB
+Matt Yu,Tech,Security,DNB
+Xiaojiang Wen,Product Manager,Security,FSI DNB
+Matt Yu,Tech,Security,FSI DNB
+Xiaojiang Wen,Product Manager,Security,Perimeter Protection(Shield Advance/FirewallManager/NetworkFirewall/WAF)
+Matt Yu,Tech,Security,Perimeter Protection(Shield Advance/FirewallManager/NetworkFirewall/WAF)
+Ryan Lian,Product Manager,S3 & Glacier,S3 & Glacier
+Yiyang Dai,Tech,S3 & Glacier,S3 & Glacier
+Ryan Lian,Product Manager,SnowFamily,SnowFamily
+Zhixuan Li,Tech,SnowFamily,SnowFamily
+Ryan Lian,Product Manager,Storage GW,Storage GW
+Zhixuan Li,Tech,Storage GW,Storage GW
+Ryan Lian,Product Manager,Datasync,Datasync
+Zhixuan Li,Tech,Datasync,Datasync
+Ryan Lian,Product Manager,AWS Transfer Family,AWS Transfer Family
+Zhixuan Li,Tech,AWS Transfer Family,AWS Transfer Family
+Ryan Lian,Product Manager,AWS Backup,AWS Backup
+Zhixuan Li,Tech,AWS Backup,AWS Backup
+Ryan Lian,Product Manager,CloudEndure/DRS,CloudEndure/DRS
+Zhixuan Li,Tech,CloudEndure/DRS,CloudEndure/DRS
+Yanyun Chen,Product Manager,EFS,EFS
+Zhida Wang,Tech,EFS,EFS
+Yanyun Chen,Product Manager,FSx Lustre,FSx Lustre
+Dawei Wang,Tech,FSx Lustre,FSx Lustre
+Yanyun Chen,Product Manager,FSx ZFS,FSx ZFS
+Dawei Wang,Tech,FSx ZFS,FSx ZFS
+Yanyun Chen,Product Manager,FSx Windows,FSx Windows
+Dawei Wang,Tech,FSx Windows,FSx Windows
+Yanyun Chen,Product Manager,FSx OnTap,FSx OnTap
+Dawei Wang,Tech,FSx OnTap,FSx OnTap
+Yanyun Chen,Product Manager,File Cache,File Cache
+Dawei Wang,Tech,File Cache,File Cache
+Allen Xie,Tech,EBS,EBS
+Ang Wang,Product Manager,G1K & Telecom,G1K & Telecom
+Lijun Fan,Sales,G1K & Telecom,G1K & Telecom
+Ang Wang,Product Manager,SMB Standard,SMB Standard
+Muni Zhang,Sales,SMB Standard,SMB Standard
+Ryan Lian,Product Manager,CS DNB,CS DNB
+Yanyun Chen,Product Manager,CS ENT-GEO/East,CS ENT-GEO/East
+Lijun Fan,Sales,CS ENT-GEO/East,CS ENT-GEO/East
+Yanyun Chen,Product Manager,CS ENT- FSI DNB/MOB/SMV/South,CS ENT- FSI DNB/MOB/SMV/South
+Yanyun Chen,Product Manager,CS ENT-Others,CS ENT-Others
+Muni Zhang,Sales,CS ENT-Others,CS ENT-Others
+Yanyun Chen,Product Manager,PS,PS
+Lijun Fan,Sales,PS,PS
+Fuyin Wang,Project Manager,Service Launch,Networking
+Fuyin Wang,Project Manager,Service Launch,Edge
+Fuyin Wang,Project Manager,Service Launch,IPv6 related features
+Grant Wang,Project Manager,Service Launch,Document Improvement
+Neo Xiang,Project Manager,Service Launch,Security
+Neo Xiang,Project Manager,Service Launch,Mgmt Tool
+Reinhard Xu,Project Manager,Service Launch,Customer Support Issue Improvement
+River Xie,Project Manager,Service Launch,Saving Plans
+River Xie,Project Manager,Service Launch,FOOB
+Winson Tam,Project Manager,Service Launch,Compute
+Winson Tam,Project Manager,Service Launch,Storage
+Tony Jin,Project Manager,Service Launch,Pricing Calculator
+Cynthia Chen,Project Manager,Service Launch,Database
+Cynthia Chen,Project Manager,Service Launch,Analytics
