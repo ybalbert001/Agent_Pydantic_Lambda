@@ -14,7 +14,22 @@ sh deploy.sh {region} {agent_tool_name} #for example agent_tool_name = 'get_cont
 ```bash
 sudo yum -y install python-pip
 pip3 install pymysql pandas sqlalchemy
-curl -LJO https://raw.githubusercontent.com/ybalbert001/Agent_Pydantic_Lambda/lambda/get_contact/init_mock_data.py
-python3 init_mock_data.py --host {db_host} --username {db_username} --password {db_password} --db_name simple_info_db --csv_file "./data.csv"
+curl -LJO https://raw.githubusercontent.com/ybalbert001/Agent_Pydantic_Lambda/main/lambda/get_contact/init_mock_data.py
+curl -LJO https://raw.githubusercontent.com/ybalbert001/Agent_Pydantic_Lambda/main/lambda/get_contact/data.csv
+python3 init_mock_data.py --host ${db_host} --username ${db_username} --password ${db_password} --db_name simple_info_db --csv_file "./data.csv"
+
+#如何想要清空数据，可以执行如下语句
+python3 init_mock_data.py --host ${db_host} --username ${db_username} --password ${db_password} --db_name simple_info_db --csv_file "./data.csv" --truncate true
 ```
 
+## 测试
+```bash
+#case 1
+{"param" : { "employee" : "Jane" }}
+
+#case 2
+{"param" : { "scope" : "SageMaker" }}
+
+#case 3
+{"param" : { "scope" : "Lex" , "role" : "Product Manager"}}
+```

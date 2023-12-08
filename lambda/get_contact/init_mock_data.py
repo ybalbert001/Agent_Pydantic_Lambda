@@ -16,6 +16,8 @@ if __name__ == "__main__":
         '--db_name', help="database name")
     parser.add_argument(
         '--csv_file', help="csv data file")
+    parser.add_argument(
+        '--truncate', help="csv data file")
     args = parser.parse_args()
 
     db_username = args.username
@@ -49,16 +51,18 @@ if __name__ == "__main__":
         domain = Column(String(64), nullable=True)
         scope = Column(String(64), nullable=True)
 
-    session.execute(text(f'TRUNCATE TABLE {db_table_name}'))
-    session.commit()
-    # 创建表
-    Base.metadata.create_all(bind=new_db_engine)
+    if args.truncate == "true":
+        session.execute(text(f'TRUNCATE TABLE {db_table_name};'))
+        session.commit()
+    else:
+        # 创建表
+        Base.metadata.create_all(bind=new_db_engine)
+        session.commit()
+        # 使用模型添加数据, 需要
 
-    # 使用模型添加数据, 需要
+        df = pd.read_csv(local_data_csv)
+        for index, row in df.iterrows():
+            user_instance = Employee_SQLAlchemy(employee=row["employee"], role=row["role"], domain=row["domain"], scope=row["scope"])
+            session.add(user_instance)
 
-    df = pd.read_csv(local_data_csv)
-    for index, row in df.iterrows():
-        user_instance = Employee_SQLAlchemy(employee=row["employee"], role=row["role"], domain=row["domain"], scope=row["scope"])
-        session.add(user_instance)
-
-    session.commit()
+        session.commit()
