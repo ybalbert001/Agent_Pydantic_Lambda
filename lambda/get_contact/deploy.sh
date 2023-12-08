@@ -12,7 +12,7 @@ agent_id=$RANDOM
 db_subnet_group_name="db_subnet_group_name_${agent_id}"
 db_username="username${agent_id}"                   
 db_password="password${agent_id}"
-db_instance_name="db-instance-${agent_id}"
+db_instance_name="db-instance-agent"
 db_name="simple_info_db"
 db_table_name='employee'
 lambda_function_name="agent_tool_$agent_name"
@@ -36,35 +36,42 @@ echo "role_name=$role_name"
 echo "</Configurations>"
 echo 
 
-echo "Step1. Creating Database instance of RDS(Mysql).."
-vpc_id=$(aws cloudformation describe-stacks --stack-name "QAChatDeployStack" --region "${region}" --query 'Stacks[0].Outputs[?OutputKey==`VPC`].{OutputValue: OutputValue}' | jq ".[].OutputValue")
-echo $vpc_id
+aws rds describe-db-instances --db-instance-identifier $db_instance_name --region ${region}
 
-sg_id=$(aws ec2 describe-security-groups --filters Name=vpc-id,Values="$vpc_id" | jq ".SecurityGroups[0].GroupId")
-sg_id=${sg_id//\"}
-echo $sg_id
+if [ $? -ne 0 ]; then  
+    echo "There is no database instance existed."
+    echo
+    echo "Step1. Creating Database instance of RDS(Mysql).."
+    vpc_id=$(aws cloudformation describe-stacks --stack-name "QAChatDeployStack" --region "${region}" --query 'Stacks[0].Outputs[?OutputKey==`VPC`].{OutputValue: OutputValue}' | jq ".[].OutputValue")
+    echo $vpc_id
 
-subnet_ids=$(aws ec2 describe-subnets --filters Name=vpc-id,Values="$vpc_id" | jq -r '.Subnets | map(.SubnetId) | join(" ")')
-echo $subnet_ids
+    sg_id=$(aws ec2 describe-security-groups --filters Name=vpc-id,Values="$vpc_id" | jq ".SecurityGroups[0].GroupId")
+    sg_id=${sg_id//\"}
+    echo $sg_id
 
-subnet_ids_list=$(aws ec2 describe-subnets --filters Name=vpc-id,Values="$vpc_id" | jq -r '.Subnets | map(.SubnetId) | join(",")')
-echo $subnet_ids_list
+    subnet_ids=$(aws ec2 describe-subnets --filters Name=vpc-id,Values="$vpc_id" | jq -r '.Subnets | map(.SubnetId) | join(" ")')
+    echo $subnet_ids
 
-aws rds create-db-subnet-group \
-    --db-subnet-group-name $db_subnet_group_name \
-    --db-subnet-group-description "DB Subnet Group For Agent" \
-    --subnet-ids $subnet_ids
+    subnet_ids_list=$(aws ec2 describe-subnets --filters Name=vpc-id,Values="$vpc_id" | jq -r '.Subnets | map(.SubnetId) | join(",")')
+    echo $subnet_ids_list
 
-aws rds create-db-instance \
-    --db-instance-identifier $db_instance_name \
-    --allocated-storage 50 \
-    --db-instance-class db.r6g.large \
-    --engine mysql \
-    --master-username $db_username \
-    --master-user-password $db_password \
-    --vpc-security-group-ids $sg_id \
-    --availability-zone $db_az \
-    --db-subnet-group-name $db_subnet_group_name
+    aws rds create-db-subnet-group \
+        --db-subnet-group-name $db_subnet_group_name \
+        --db-subnet-group-description "DB Subnet Group For Agent" \
+        --subnet-ids $subnet_ids
+
+    aws rds create-db-instance \
+        --db-instance-identifier $db_instance_name \
+        --allocated-storage 50 \
+        --db-instance-class db.r6g.large \
+        --engine mysql \
+        --master-username $db_username \
+        --master-user-password $db_password \
+        --vpc-security-group-ids $sg_id \
+        --availability-zone $db_az \
+        --db-subnet-group-name $db_subnet_group_name
+fi
+
 
 db_host=""
 db_port=3306
