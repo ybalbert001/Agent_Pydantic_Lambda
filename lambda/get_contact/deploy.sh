@@ -164,3 +164,8 @@ env_list="{db_username='${db_username}',db_password='${db_password}',db_host='${
 aws lambda update-function-configuration --function-name $lambda_function_name \
     --environment Variables=$env_list
 
+echo "step3: register all agent tool lambdas into Chat_Agent env"
+all_agent_lambdas=$(aws lambda list-functions --query "Functions[?starts_with(FunctionName, 'agent_tool')].FunctionName" --output text | tr '\t' ',')
+
+aws lambda update-function-configuration --function-name "Chat_Agent" \
+    --environment Variables="{agent_tools='${all_agent_lambdas}'}"
