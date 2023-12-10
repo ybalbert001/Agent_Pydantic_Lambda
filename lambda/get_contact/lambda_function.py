@@ -87,7 +87,7 @@ def lambda_handler(event, context):
         if len(results) == 0:
             plain_result = f"Can't find that employee - {employee_sqlalchemy.employee}."
             all_possible_employees = session.query(Employee_SQLAlchemy.employee).all()
-            top_similar_employees = possible_candidates_by_diff(all_possible_employees, input_str)
+            top_similar_employees = possible_candidates_by_diff(all_possible_employees, employee_sqlalchemy.employee)
             if len(top_similar_employees) > 0:
                 top_similar_employees_str = ", ".join(top_similar_employees)
                 plain_result += " Are these employees - '{top_similar_employees_str}' you are looking for? "
@@ -99,7 +99,7 @@ def lambda_handler(event, context):
         if len(results) == 0:
             plain_result = f"Can't find relevant information by - {employee_sqlalchemy.scope}."
             all_possible_scopes = session.query(Employee_SQLAlchemy.scope).all()
-            top_similar_scopes = possible_candidates_by_diff(all_possible_scopes, input_str)
+            top_similar_scopes = possible_candidates_by_diff(all_possible_scopes, employee_sqlalchemy.scope)
             if len(top_similar_scopes) > 0:
                 top_similar_scopes_str = ", ".join(top_similar_scopes)
                 plain_result += " Are these scopes - '{top_similar_scopes_str}' you are looking for? "
@@ -111,7 +111,7 @@ def lambda_handler(event, context):
         if len(results) == 0:
             plain_result = "Can't find relevant information by domain - {employee_sqlalchemy.domain}."
             all_possible_domains = session.query(Employee_SQLAlchemy.domain).all()
-            top_similar_domains = possible_candidates_by_diff(all_possible_domains, input_str)
+            top_similar_domains = possible_candidates_by_diff(all_possible_domains, employee_sqlalchemy.domain)
             
             if len(top_similar_domains) > 0:
                 top_similar_domains_str = ", ".join(top_similar_domains)
