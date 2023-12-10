@@ -63,7 +63,10 @@ def lambda_handler(event, context):
         # print("call format_results")
         # print("call format_results {}".format(len(results)))
         for idx, item in enumerate(results):
-            converted_items.append(f"[{idx}] {item.employee} works as a {item.role} role, take responsibility of '{item.scope}' in domain {item.domain}.")
+            if item.role.lower() == 'sales':
+                converted_items.append(f"[{idx+1}] {item.employee}, as a {item.role} role, is responsible for {item.domain} business in the {item.scope} region.")
+            else:
+                converted_items.append(f"[{idx+1}] {item.employee}, as a {item.role} role, is responsible for {item.scope} related services in the {item.domain} field.")
         
         print(converted_items)
         return "\n".join(converted_items)
