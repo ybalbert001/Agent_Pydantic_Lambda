@@ -5,6 +5,7 @@ from typing import Optional
 from sqlalchemy import create_engine, text, Column, Integer, String, MetaData, Table, Sequence, or_, and_
 from sqlalchemy.orm import declarative_base
 from sqlalchemy.orm import Session
+import difflib
 
 db_username = os.environ.get('db_username')
 db_password = os.environ.get('db_password')
@@ -70,12 +71,26 @@ def lambda_handler(event, context):
         
         print(converted_items)
         return "\n".join(converted_items)
+
+    def possible_candidates_by_diff(records, input_str, ret_cnt=3):
+        sim_list = []
+        for record in enumerate(records):
+            similarity = difflib.SequenceMatcher(None, input_str, record).ratio()
+            sim_list.append((record, similarity))
+        
+        sorted_sim_list = sorted(sim_list, key=lambda x: x[1], reverse=True)
+        return [ item[0] for item in sorted_sim_list[:ret_cnt] if item[1] > 0.75 ]
     
     if employee_sqlalchemy.employee is not None:
         print("query by employee name")
         results = session.query(Employee_SQLAlchemy).filter(Employee_SQLAlchemy.employee.ilike(f'%{employee_sqlalchemy.employee}%')).all()
         if len(results) == 0:
             plain_result = f"Can't find that employee - {employee_sqlalchemy.employee}."
+            all_possible_employees = session.query(Employee_SQLAlchemy.employee).all()
+            top_similar_employees = possible_candidates_by_diff(all_possible_employees, input_str)
+            if len(top_similar_employees) > 0:
+                top_similar_employees_str = ", ".join(top_similar_employees)
+                plain_result += " Are these employees - '{top_similar_employees_str}' you are looking for? "
         else:
             plain_result = format_results(results)
     elif employee_sqlalchemy.scope is not None:
@@ -83,13 +98,24 @@ def lambda_handler(event, context):
         results = session.query(Employee_SQLAlchemy).filter(Employee_SQLAlchemy.scope.ilike(f'%{employee_sqlalchemy.scope}%')).all()
         if len(results) == 0:
             plain_result = f"Can't find relevant information by - {employee_sqlalchemy.scope}."
+            all_possible_scopes = session.query(Employee_SQLAlchemy.scope).all()
+            top_similar_scopes = possible_candidates_by_diff(all_possible_scopes, input_str)
+            if len(top_similar_scopes) > 0:
+                top_similar_scopes_str = ", ".join(top_similar_scopes)
+                plain_result += " Are these scopes - '{top_similar_scopes_str}' you are looking for? "
         else:
             plain_result = format_results(results)
-    elif employee_sqlalchemy.domain is not None and employee_sqlalchemy.role is not None:
-        print("query by domain and role")
-        results = session.query(Employee_SQLAlchemy).filter(and_(Employee_SQLAlchemy.domain.ilike(f'%{employee_sqlalchemy.domain}%'), Employee_SQLAlchemy.role == employee_sqlalchemy.role)).all()
+    elif employee_sqlalchemy.domain is not None:
+        print("query by domain")
+        results = session.query(Employee_SQLAlchemy).filter(Employee_SQLAlchemy.domain.ilike(f'%{employee_sqlalchemy.domain}%')).all()
         if len(results) == 0:
-            plain_result = "Can't find relevant information by - domain:{employee_sqlalchemy.domain} and role:{employee_sqlalchemy.role}."
+            plain_result = "Can't find relevant information by domain - {employee_sqlalchemy.domain}."
+            all_possible_domains = session.query(Employee_SQLAlchemy.domain).all()
+            top_similar_domains = possible_candidates_by_diff(all_possible_domains, input_str)
+            
+            if len(top_similar_domains) > 0:
+                top_similar_domains_str = ", ".join(top_similar_domains)
+                plain_result += " Are these domains - '{top_similar_domains_str}' you are looking for? "
         else:
             plain_result = format_results(results)
     else:
