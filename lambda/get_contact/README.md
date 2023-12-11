@@ -42,8 +42,8 @@ python3 init_mock_data.py --host ${db_host} --username ${db_username} --password
 {"param" : { "scope" : "SageMaker Studio" }, "query" : "SageMaker Studio的问题联系谁？"}
 
 #case 6
-#测试目的：自动生成建议的问题，把Lax替换成Lex
-{"param" : { "scope" : "Lax" }, "query" : "Lax的问题该找谁？"}
+#测试目的：自动生成建议的问题，把Iex替换成Lex
+{"param" : { "scope" : "Iex" }, "query" : "Iex的问题该找谁？"}
 
 #case 7
 #测试目的：如果没有相似的信息，放弃生成suggested_question
