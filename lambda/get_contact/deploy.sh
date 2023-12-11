@@ -46,7 +46,7 @@ echo "sg_id: $sg_id"
 subnet_ids=$(aws ec2 describe-subnets --filters Name=vpc-id,Values=$vpc_id | jq -r '.Subnets | map(.SubnetId) | join(" ")')
 echo "subnet_ids: $subnet_ids"
 
-subnet_ids_list=$(aws ec2 describe-subnets --filters Name=vpc-id,Values="$vpc_id" | jq -r '.Subnets | map(.SubnetId) | join(",")')
+subnet_ids_list=$(aws ec2 describe-subnets --filters Name=vpc-id,Values=$vpc_id | jq -r '.Subnets | map(.SubnetId) | join(",")')
 echo "subnet_ids_list: $subnet_ids_list"
 
 aws rds describe-db-instances --db-instance-identifier $db_instance_name --region ${region}
