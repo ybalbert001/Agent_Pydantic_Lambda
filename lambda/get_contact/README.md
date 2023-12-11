@@ -25,11 +25,31 @@ python3 init_mock_data.py --host ${db_host} --username ${db_username} --password
 ## 测试
 ```bash
 #case 1
-{"param" : { "employee" : "Jane" }}
+{"param" : { "employee" : "Jane" }, "query" : "Jane 负责哪部份？"}
 
 #case 2
-{"param" : { "scope" : "SageMaker" }}
+{"param" : { "scope" : "SageMaker" }, "query" : "SageMaker 的问题谁负责？"}
 
 #case 3
-{"param" : { "scope" : "Lex" , "role" : "Product Manager"}}
+{"param" : { "scope" : "Lex" , "role" : "Product Manager"}, "query": "Lex的产品经理是谁"}
+
+#case 4 
+#测试目的：自动生成建议的问题，把Jene替换成Jane
+{"param" : { "employee" : "Jene" }, "query":"Jene负责什么的？"}
+
+#case 5
+#测试目的：自动生成建议的问题，把SageMaker Studio替换成SageMaker
+{"param" : { "scope" : "SageMaker Studio" }, "query" : "SageMaker Studio的问题联系谁？"}
+
+#case 6
+#测试目的：自动生成建议的问题，把Lax替换成Lex
+{"param" : { "scope" : "Lax" }, "query" : "Lax的问题该找谁？"}
+
+#case 7
+#测试目的：如果没有相似的信息，放弃生成suggested_question
+{"param" : { "scope" : "CleanRoom" }, "query" : "CleanRoom的SSA是谁？"}
+
+#case 7
+#测试目的：如果没有相似的信息，放弃生成suggested_question
+{"param" : { "scope" : "Glue" }, "query" : "Glue的SSA是谁？"}
 ```

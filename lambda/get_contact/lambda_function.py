@@ -13,6 +13,7 @@ db_host = os.environ.get('db_host')
 db_port = os.environ.get('db_port')
 db_name = os.environ.get('db_name')
 db_table_name = os.environ.get('db_table_name')
+similarity_threshold = os.environ.get('similarity_threshold', 0.4)
 
 new_db_connection_string = f"mysql+pymysql://{db_username}:{db_password}@{db_host}:{db_port}/{db_name}"
 new_db_engine = create_engine(new_db_connection_string)
@@ -46,6 +47,8 @@ class Employee_Pydantic(BaseModel):
     
 def lambda_handler(event, context):
     param = event.get('param')
+    query = event.get('query', None)
+
     
     employee_obj = None
     try:
@@ -53,7 +56,7 @@ def lambda_handler(event, context):
     except ValidationError as e:
         return {
             'statusCode': 500,
-            'body': e.json()
+            'message': e.json()
         }
     
     employee_sqlalchemy = Employee_SQLAlchemy(**employee_obj.dict())
@@ -69,59 +72,65 @@ def lambda_handler(event, context):
             else:
                 converted_items.append(f"[{idx+1}] {item.employee}, as a {item.role} role, is responsible for {item.scope} related services in the {item.domain} field.")
         
-        print(converted_items)
-        return "\n".join(converted_items)
+        return converted_items
 
     def possible_candidates_by_diff(records, input_str, ret_cnt=3):
         sim_list = []
-        for record in enumerate(records):
-            similarity = difflib.SequenceMatcher(None, input_str, record).ratio()
-            sim_list.append((record, similarity))
+        for record in records:
+            print(f"input_str:{input_str}")
+            print(f"record:{record}")
+            similarity = difflib.SequenceMatcher(None, input_str, record[0]).ratio()
+            sim_list.append((record[0], similarity))
         
         sorted_sim_list = sorted(sim_list, key=lambda x: x[1], reverse=True)
-        return [ item[0] for item in sorted_sim_list[:ret_cnt] if item[1] > 0.75 ]
-    
+        print(f"sorted_sim_list:{sorted_sim_list}")
+        return [ item[0] for item in sorted_sim_list[:ret_cnt] if item[1] > similarity_threshold ]
+
+    message = ""
+    suggested_question = ""
+    code = 200
     if employee_sqlalchemy.employee is not None:
         print("query by employee name")
         results = session.query(Employee_SQLAlchemy).filter(Employee_SQLAlchemy.employee.ilike(f'%{employee_sqlalchemy.employee}%')).all()
         if len(results) == 0:
-            plain_result = f"Can't find that employee - {employee_sqlalchemy.employee}."
+            message = f"Can't find that employee - {employee_sqlalchemy.employee}."
             all_possible_employees = session.query(Employee_SQLAlchemy.employee).all()
             top_similar_employees = possible_candidates_by_diff(all_possible_employees, employee_sqlalchemy.employee)
-            if len(top_similar_employees) > 0:
-                top_similar_employees_str = ", ".join(top_similar_employees)
-                plain_result += " Are these employees - '{top_similar_employees_str}' you are looking for? "
+            if len(top_similar_employees) > 1 and query:
+                code = 404
+                suggested_question = query.replace(employee_sqlalchemy.employee, top_similar_employees[0])
         else:
-            plain_result = format_results(results)
+            message = format_results(results)
     elif employee_sqlalchemy.scope is not None:
         print("query by scope only")
         results = session.query(Employee_SQLAlchemy).filter(Employee_SQLAlchemy.scope.ilike(f'%{employee_sqlalchemy.scope}%')).all()
         if len(results) == 0:
-            plain_result = f"Can't find relevant information by - {employee_sqlalchemy.scope}."
+            message = f"Can't find relevant information by - {employee_sqlalchemy.scope}."
             all_possible_scopes = session.query(Employee_SQLAlchemy.scope).all()
             top_similar_scopes = possible_candidates_by_diff(all_possible_scopes, employee_sqlalchemy.scope)
-            if len(top_similar_scopes) > 0:
-                top_similar_scopes_str = ", ".join(top_similar_scopes)
-                plain_result += " Are these scopes - '{top_similar_scopes_str}' you are looking for? "
+            if len(top_similar_scopes) > 0 and query:
+                code = 404
+                suggested_question = query.replace(employee_sqlalchemy.scope, top_similar_scopes[0])
         else:
-            plain_result = format_results(results)
+            message = format_results(results)
     elif employee_sqlalchemy.domain is not None:
         print("query by domain")
         results = session.query(Employee_SQLAlchemy).filter(Employee_SQLAlchemy.domain.ilike(f'%{employee_sqlalchemy.domain}%')).all()
         if len(results) == 0:
-            plain_result = "Can't find relevant information by domain - {employee_sqlalchemy.domain}."
+            message = "Can't find relevant information by domain - {employee_sqlalchemy.domain}."
             all_possible_domains = session.query(Employee_SQLAlchemy.domain).all()
             top_similar_domains = possible_candidates_by_diff(all_possible_domains, employee_sqlalchemy.domain)
             
-            if len(top_similar_domains) > 0:
-                top_similar_domains_str = ", ".join(top_similar_domains)
-                plain_result += " Are these domains - '{top_similar_domains_str}' you are looking for? "
+            if len(top_similar_domains) > 0 and query:
+                code = 404
+                suggested_question = query.replace(employee_sqlalchemy.domain, top_similar_domains[0])
         else:
-            plain_result = format_results(results)
+            message = format_results(results)
     else:
-        plain_result = "Can't find relevant information."
+        message = "Can't find relevant information."
     
     return {
-        'statusCode': 200,
-        'body': plain_result
+        'statusCode': code,
+        'message': message,
+        'suggested_question' : suggested_question
     }
