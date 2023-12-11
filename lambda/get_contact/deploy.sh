@@ -158,7 +158,16 @@ aws lambda create-function --function-name $lambda_function_name \
     --role $role_arn \
     --vpc-config SubnetIds=$subnet_ids_list,SecurityGroupIds=$sg_id
 
-sleep 15
+while true; do
+    ret=$(aws lambda get-function --function-name $lambda_function_name | jq '.Configuration.State')
+    if [ "$ret" = "\"Active\"" ]; then
+        break
+    else
+        echo "Waiting for lambda launch..."
+        sleep 3
+    fi
+done
+
 env_list="{db_username='${db_username}',db_password='${db_password}',db_host='${db_host}',db_port='${db_port}',db_name='${db_name}',db_table_name='${db_table_name}'}"
 
 aws lambda update-function-configuration --function-name $lambda_function_name \
