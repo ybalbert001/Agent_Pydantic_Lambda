@@ -14,14 +14,17 @@ sh deploy.sh {region} {agent_tool_name} #for example agent_tool_name = 'get_cont
 ```bash
 sudo yum -y install python-pip
 pip3 install pymysql pandas sqlalchemy
-curl -LJO https://raw.githubusercontent.com/ybalbert001/Agent_Pydantic_Lambda/main/lambda/get_contact/init_mock_data.py
+curl -LJO https://raw.githubusercontent.com/ybalbert001/Agent_Pydantic_Lambda/main/lambda/get_contact/ingest_data.py
+curl -LJO https://raw.githubusercontent.com/ybalbert001/Agent_Pydantic_Lambda/main/lambda/get_contact/ingest_data.sh
 curl -LJO https://raw.githubusercontent.com/ybalbert001/Agent_Pydantic_Lambda/main/lambda/get_contact/data.csv
 
 #注入数据
-bash init_mock_data.sh ${region} 
+bash ingest_data.sh ${region} 
 #如何想要清空数据，可以执行如下语句
-bash init_mock_data.sh ${region} "truncate"
+bash ingest_data.sh ${region} "truncate"
 ```
+
+
 
 ## 测试
 ```bash
