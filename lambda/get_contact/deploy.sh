@@ -75,8 +75,8 @@ if [ $? -ne 0 ]; then
         --db-subnet-group-name $db_subnet_group_name
 
     echo "write username/password to ssm"
-    aws ssm put-parameter --name "agent_db_username" --value "$db_username" --type String
-    aws ssm put-parameter --name "agent_db_password" --value "$db_password" --type String
+    aws ssm put-parameter --name "agent_db_username" --value "$db_username" --type String --overwrite
+    aws ssm put-parameter --name "agent_db_password" --value "$db_password" --type String --overwrite
 else
     echo "read username/password from ssm"
     db_username=$(aws ssm get-parameter --name "agent_db_username" | jq '.Parameter.Value')
