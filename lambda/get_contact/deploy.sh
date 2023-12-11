@@ -39,7 +39,7 @@ echo "Step1. Creating Database instance of RDS(Mysql).."
 vpc_id=$(aws cloudformation describe-stacks --stack-name "QAChatDeployStack" --region "${region}" --query 'Stacks[0].Outputs[?OutputKey==`VPC`].{OutputValue: OutputValue}' | jq ".[].OutputValue")
 echo "vpc_id: $vpc_id"
 
-sg_id=$(aws ec2 describe-security-groups --filters Name=vpc-id,Values=$vpc_id | jq ".SecurityGroups[0].GroupId")
+sg_id=$(aws ec2 describe-security-groups --filters Name=vpc-id,Values=$vpc_id | jq '.SecurityGroups[] | select(.GroupName | contains("lambdasecuritygroup")) | .GroupId')
 sg_id=${sg_id//\"}
 echo "sg_id: $sg_id"
 
