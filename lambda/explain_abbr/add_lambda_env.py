@@ -15,9 +15,9 @@ old_env = response['Environment']['Variables']
 
 env_vars = {**old_env}
 env_vars[new_env_key] = new_env_value
-
 print(f"env_vars:{env_vars}")
+
 response = lambda_client.update_function_configuration(
                 FunctionName=function_name, Environment={"Variables": env_vars}
             )
-print(response)                                                                                                                                           
+print(response)

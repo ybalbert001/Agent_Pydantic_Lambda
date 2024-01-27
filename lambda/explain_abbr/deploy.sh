@@ -13,7 +13,7 @@ db_subnet_group_name="db_subnet_group_name_${agent_id}"
 
 db_instance_name="db-instance-agent"
 db_name="simple_info_db"
-db_table_name='employee'
+db_table_name='abbr'
 lambda_function_name="agent_tool_$agent_name"
 policy_name="policy$agent_id"
 role_name="role$agent_id"
